@@ -1,4 +1,3 @@
-![WhatsApp Image 2025-10-03 at 08 16 12_a9f9b360](https://github.com/user-attachments/assets/52d8c198-46fc-445c-bc23-61d85f4c2ee3)# INTERFACING DAC WITH 8086 KIT AND GENERATING SAWTOOTH AND SQUARE WAVEFORMS
 
 ## AIM
 To write an assembly language program in 8086 to generate Sawtooth and Square waveforms using DAC.
