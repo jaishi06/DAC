@@ -1,103 +1,83 @@
+# DSBSC
 
-## AIM
-To write an assembly language program in 8086 to generate Sawtooth and Square waveforms using DAC.
+JAISIKAA.S (212224063103)
 
----
+EX NO: 2	DSB-SC-AM MODULATOR AND DEMODULATOR
 
-## APPARATUS REQUIRED
+AIM:
 
-| S. No | Item              | Specification   | Quantity |
-|-------|------------------|-----------------|----------|
-| 1     | Microprocessor kit | 8086            | 1        |
-| 2     | Power Supply      | +5 V DC, +12 V DC | 1      |
-| 3     | DAC Interface board | -              | 1        |
+To write a program to perform DSBSC modulation and demodulation using SCI LAB and study its spectral characteristics
 
----
+EQUIPMENTS REQUIRED
 
-## ALGORITHM
+•	Computer with i3 Processor
+•	SCI LAB
 
-### Measurement of Analog Voltage
-1. Send the digital value to DAC.  
-2. Read the corresponding analog value at its output.  
+Note: Keep all the switch faults in off position
 
-### Waveform Generation
+Algorithm:
 
-#### Square Waveform
-1. Send low value (00) to the DAC.  
-2. Introduce suitable delay.  
-3. Send high value to DAC.  
-4. Introduce delay.  
-5. Repeat the above procedure.  
+1.	Define Parameters:
+•	Fs: Sampling frequency.
+•	T: Duration of the signal.
+•	Fc: Carrier frequency.
+•	Fm: Frequency of the message signal.
+•	Amplitude: Maximum amplitude of the message signal.
+2.	Generate Signals:
+•	Message Signal: A sinusoidal signal that will be modulated.
+•	Carrier Signal: A high-frequency sinusoidal signal used for modulation.
+3.	DSBSC Modulation:
+•	Modulated Signal: Multiply the message signal by the carrier signal to produce the DSBSC signal.
+4.	DSBSC Demodulation:
+•	Multiplication: Multiply the modulated signal by the carrier signal to get the product of the message signal with itself (i.e., the original message signal plus high-frequency components).
+•	Low-pass Filtering: Apply a Butterworth low-pass filter to remove the high- frequency components and recover the original message signal.
+5.	Visualization:
+Plot the message signal, carrier signal, DSBSC modulated signal, and the recovered signal after demodulation.
+PROCEDURE
 
-#### Sawtooth Waveform
-1. Load low value (00) to accumulator.  
-2. Send this value to DAC.  
-3. Increment the accumulator.  
-4. Repeat step (ii) and (iii) until accumulator value reaches FF.  
-5. Repeat the above procedure from step 1.  
+•	Refer Algorithms and write code for the experiment.
+•	Open SCILAB in System
+•	Type your code in New Editor
+•	Save the file
+ 
+•	Execute the code
+•	If any Error, correct it in code and execute again
+•	Verify the generated waveform using Tabulation and Model Waveform
 
----
+Model Waveform
 
-## PROGRAMS
+<img width="703" height="679" alt="image" src="https://github.com/user-attachments/assets/e7c7c7f8-ccf2-41ac-b1f3-325989941a6f" />
 
-# 8086 Assembly Programs – DAC Interfacing
+Program
+```
+Am=4.4;
+fm=367;
+Ac=8.8;
+fc=3670;
+fs=36700;
+t=0:1/fs:2/fm;
+m=Am*cos(2*3.14*fm*t);
+subplot(3,1,1);
+plot(t,m);
+c=Ac*cos(2*3.14*fc*t);
+subplot(3,1,2);
+plot(t,c);
+s1=(Ac+m).*cos(2*3.14*fc*t);
+s2=(Ac-m).*cos(2*3.14*fc*t);
+s=(s1-s2);
+subplot(3,1,3);
+plot(t,s);
+```
+Output Graph
 
-## Program: Square Wave
-
-| Memory Location | Program     | Comments                          |
-|-----------------|-------------|-----------------------------------|
-| 1000            | MOV AL,00H  | Load 00H in Accumulator           |
-| 1003            |  OUT 0C8H,AL | Send through output port         |
-| 1005            |  CALL DELAY(1100)  | CALL PROGRAM TO 1100      |
-| 1008            |  MOV AL,0FFH |   Load 00H in Accumulator       |
-| 100A            |   OUT 0C8H,AL|  Send through output port       |
-| 100D            |  CALL DELAY(1100) | CALL PROGRAM TO 1100       |
-
-
-| Memory Location | Program     | Comments                          |
-|-----------------|-------------|-----------------------------------|
-| 1100            | MOV CX,0505  | Load 0505H in Accumulator           |
-| 1103            |  DEC CX | Decrement CX        |
-| 1105           |  JNZ 1104  | RPEAT UNTILL ZERO      |
-| 1108            |   RET |   RETURN TO MAIN PROGRAM      |
-
-
-# Program: Sawtooth wave
-
-## Assembly Program
-
-| Memory Location | Program Instruction   | Comments                        |
-|-----------------|-----------------------|---------------------------------|
-| `1000`          | `START: MOV AL,00H`  | Load `00H` in accumulator       |
-| `1003`          | `LOOP : OUT 0C8H,AL` | Send through output port        |
-| `1005`          | `INC AL`             | Increment contents of accumulator |
-| `1007`          | `JNC LOOP`           | Jump if no carry (continue loop) |
-| `1009`          | `JMP START`          | Go to starting location         |
-
----
-
-## Tabulation
-
-| Waveform  | Amplitude | Time period | 
-|-----------|-----------|-------------|
-| Sawtooth  |8.08V      | 1.624ms     | 
-| Square    |9.60V      |6.052ms      |
----
-
-## Model Graph
-
-*(Insert graph/diagram here if available)*
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/fbeb7588-0f53-41a6-b946-31b08fc88392" />
 
 
-
-## OUTPUT IMAGE OF DAC(SAWTOOTH WAVE FROM DSO AND SQUARE WAVE FROM DSO)
-![WhatsApp Image 2025-10-03 at 08 16 12_1b87a505](https://github.com/user-attachments/assets/9ac79e8f-c197-4f0e-856f-068aa4b1a466)
-![WhatsApp Image 2025-10-03 at 08 16 12_41a0f045](https://github.com/user-attachments/assets/3042e6f0-3b89-4e7d-8efa-4d15b3d09113)
+Tablular Column
+![WhatsApp Image 2025-09-25 at 16 10 47_9c922e27](https://github.com/user-attachments/assets/65b8e6f2-479a-4b68-91b0-b92e7b5eb29e)
 
 
+Result
 
+Thus the DSB-SC-AM Modulation and Demodulation is generated.
 
-
-## Result
-
-Thus, the **DAC was interfaced with 8086** and different **waveforms** were successfully generated.
